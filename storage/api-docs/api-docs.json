@@ -1,0 +1,633 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "User's Rank API",
+        "description": "Demo User's Rank based on the Number of Posts API",
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/post": {
+            "get": {
+                "tags": [
+                    "Post"
+                ],
+                "summary": "All User's Posts",
+                "description": "All User's Posts",
+                "operationId": "f5fce8229f9ae9db81339c7bad1dadb5",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/post/add": {
+            "post": {
+                "tags": [
+                    "Post"
+                ],
+                "summary": "Add Post",
+                "description": "Return Post's Insert Status value",
+                "operationId": "addNewPost",
+                "parameters": [
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "description": "Title Post",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "tags",
+                        "in": "query",
+                        "description": "Tag for post, and each tag seperated by ';'",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "content",
+                        "in": "query",
+                        "description": "Post Content",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Opearation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/post/{postId}": {
+            "get": {
+                "tags": [
+                    "Post"
+                ],
+                "summary": "Find Post by ID",
+                "description": "Returns a single Post",
+                "operationId": "getPostById",
+                "parameters": [
+                    {
+                        "name": "postId",
+                        "in": "path",
+                        "description": "ID Post",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "404": {
+                        "description": "Post not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/post/{postId}/edited": {
+            "put": {
+                "tags": [
+                    "Post"
+                ],
+                "summary": "Update Post based on id",
+                "description": "Returns a Post's Update Status",
+                "operationId": "updatePostById",
+                "parameters": [
+                    {
+                        "name": "postId",
+                        "in": "path",
+                        "description": "ID Post",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "description": "Title Post",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "tags",
+                        "in": "query",
+                        "description": "Tag for post, and each tag seperated by ';'",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "content",
+                        "in": "query",
+                        "description": "Post Content",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Opearation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/post/{postId}/delete": {
+            "delete": {
+                "tags": [
+                    "Post"
+                ],
+                "summary": "Delete Post based on id",
+                "description": "Returns a Post's Delete Status",
+                "operationId": "deletePostById",
+                "parameters": [
+                    {
+                        "name": "postId",
+                        "in": "path",
+                        "description": "ID Post",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Opearation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/ranks": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Leaderboard User's Rank",
+                "operationId": "98dba24030d1e868e9d6ebbc2528de0a",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/user/rank": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "User's Rank",
+                "operationId": "userRank",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/signup": {
+            "post": {
+                "tags": [
+                    "Login"
+                ],
+                "summary": "Sign Up User",
+                "operationId": "4a30c7f3be27c5601ff87d4b9e08e320",
+                "parameters": [
+                    {
+                        "name": "firstName",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "lastName",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "password"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Login"
+                ],
+                "summary": "Log In User",
+                "operationId": "login",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "password"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+        },
+        "/api/user": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Review User Info",
+                "operationId": "74fd9835c0ea6275e95553699146c966",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/user/edited": {
+            "put": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Update Info User",
+                "operationId": "cd870a1bd55f7cb3c7dc21f14083f614",
+                "parameters": [
+                    {
+                        "name": "firstName",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "lastName",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "schema": {
+                            "type": "string",
+                            "format": "password"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/user/avatar/edited": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Update Avatar User",
+                "description": "Update Avatar User",
+                "operationId": "f1d88b5c1e49a21331e6534e0bea2aa2",
+                "parameters": [
+                    {
+                        "name": "File Image",
+                        "in": "query",
+                        "schema": {
+                            "type": "file",
+                            "default": "multipart/form-data"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/user/logout": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Log Out - Revoke Token (Deprecated)",
+                "operationId": "190f4dad314a6d5c1408f35c002ad611",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                },
+                "deprecated": true,
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "StorePostsRequest": {
+                "properties": {
+                    "title": {
+                        "type": "string"
+                    },
+                    "tags": {
+                        "type": "string"
+                    },
+                    "content": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdatePostsRequest": {
+                "properties": {
+                    "title": {
+                        "type": "string"
+                    },
+                    "tags": {
+                        "type": "string"
+                    },
+                    "content": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "UserLoginRequest": {
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "example": "phongdo1104@gmail.com"
+                    },
+                    "password": {
+                        "type": "string",
+                        "example": "11042001"
+                    }
+                },
+                "type": "object"
+            },
+            "UserSignInRequest": {
+                "properties": {
+                    "firstName": {
+                        "type": "string",
+                        "example": "Phong"
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "example": "Do"
+                    },
+                    "email": {
+                        "type": "string",
+                        "example": "phongdo1104@gmail.com"
+                    },
+                    "password": {
+                        "type": "string",
+                        "example": "11042001"
+                    }
+                },
+                "type": "object"
+            },
+            "UserUpdateAvatarRequest": {
+                "properties": {
+                    "avatar": {
+                        "type": "file"
+                    }
+                },
+                "type": "object"
+            },
+            "UserUpdateRequest": {
+                "properties": {
+                    "firstName": {
+                        "type": "string",
+                        "example": "Phong"
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "example": "Do"
+                    },
+                    "email": {
+                        "type": "string",
+                        "example": "phongdo1104@gmail.com"
+                    },
+                    "password": {
+                        "type": "string",
+                        "example": "11042001"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "apiKey",
+                "name": "Authorization",
+                "description": "Enter token in format (Bearer 'token')",
+                "in": "header"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Login",
+            "description": "User Tag"
+        },
+        {
+            "name": "User",
+            "description": "User Tag"
+        },
+        {
+            "name": "Post",
+            "description": "Post Tag"
+        }
+    ]
+}
