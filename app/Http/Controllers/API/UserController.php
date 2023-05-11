@@ -410,74 +410,7 @@ class UserController extends Controller
             'message' => 'Cập nhật thông tin người dùng thành công.'
         ], 200);
     }
-
-    /**
-     * Update Avatar User
-     * 
-     * @OA\Post(
-     *      path="/api/user/avatar/edited",
-     *      summary="Update Avatar User",
-     *      tags={"User"},
-     *      @OA\MediaType(mediaType="multipart/form-data"),
-     *      @OA\Parameter(
-     *          name="File Image",
-     *          in="query",
-     *          @OA\Schema(
-     *              type="file",
-     *              default="multipart/form-data"
-     *          )
-     *      ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation",
-     *       ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
-     *      ),
-     *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
-     *      ),
-     *      @OA\Response(
-     *          response=404,
-     *          description="Not found",
-     *      ),
-     *      security={
-     *         {"bearerAuth": {}}
-     *      }
-     * )
-     * @param UserUpdateAvatarRequest $request
-     * @return Response
-     */
-    public function updateAvatar(UserUpdateAvatarRequest $request)
-    {
-        dd(1);
-        $user = Auth::user();
-        // Get current Avatar Name
-        $imageName = explode("\\", $request->file('avatar'));
-        dd($request->file('avatar'));
-
-        // Generate new Avatar name
-        $newName =  "AvatarUser_" . $request->user()->id . ".png";
-        
-        // Store Image to Public Folder
-        $path = Storage::disk('public')->putFileAs('avatars', $request->file('avatar'), $newName);
-
-        $user->avatar = $path;
-        $result = $user->save();
-
-        // If result is false, that means save process has occurred some issues
-        if (!$result)
-            return Response([
-                'message' => "Internal Server Error"
-            ], 500);
-
-        return Response([
-            'message' => 'Cập nhật ảnh đại diện thành công.'
-        ], 200);
-    }
-
+    
     // This function is deprecated
     /**
      * Log Out - Revoke Token (Deprecated)
